@@ -2,6 +2,11 @@ package com.mredrock.wanandroid.network.httphelper;
 
 import java.util.Map;
 
+/**
+ * @author 行云流水
+ * @date 2020/3/24
+ * @description
+ */
 public class Request {
 
     private String url;

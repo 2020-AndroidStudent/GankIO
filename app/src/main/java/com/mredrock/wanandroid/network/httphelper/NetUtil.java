@@ -12,6 +12,11 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author 行云流水
+ * @date 2020/3/24
+ * @description
+ */
 public class NetUtil {
 
     //使用静态内部类的单例模式来创建网络请求专用的线程池,线程安全,同时达到了懒加载效果

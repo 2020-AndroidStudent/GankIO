@@ -18,6 +18,11 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * @author 行云流水
+ * @date 2020/3/24
+ * @description
+ */
 public class SevenUtil {
 
 // 工具一 获取网络图片

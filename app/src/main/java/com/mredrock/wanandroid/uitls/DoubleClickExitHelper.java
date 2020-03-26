@@ -7,6 +7,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+/**
+ * @author 行云流水
+ * @date 2020/3/24
+ * @description
+ */
 public class DoubleClickExitHelper {
 
     private Context mContext;
