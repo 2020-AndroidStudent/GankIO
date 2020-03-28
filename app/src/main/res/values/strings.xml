@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WanAndroid</string>
     <string name="program_type">项目类型</string>
+    <string name="program_desc">项目描述</string>
+    <string name="program_author">author</string>
+    <string name="program_date">xxxx-xx-xx xx:xx:xx</string>
 </resources>

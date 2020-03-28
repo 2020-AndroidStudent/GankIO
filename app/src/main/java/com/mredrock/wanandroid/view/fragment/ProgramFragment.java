@@ -13,8 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mredrock.wanandroid.R;
 import com.mredrock.wanandroid.base.BaseFragment;
+import com.mredrock.wanandroid.bean.Program;
+import com.mredrock.wanandroid.bean.ProgramType;
 import com.mredrock.wanandroid.contract.ProgramContract;
 import com.mredrock.wanandroid.presenter.ProgramPresenter;
+import com.mredrock.wanandroid.view.adapter.ProgramAdapter;
+import com.mredrock.wanandroid.view.adapter.ProgramTypeAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 行云流水
@@ -24,6 +31,10 @@ import com.mredrock.wanandroid.presenter.ProgramPresenter;
 public class ProgramFragment extends BaseFragment<ProgramPresenter> implements ProgramContract.View {
 
     private RecyclerView recyclerViewProgramType, recyclerViewProgram;
+    private ProgramTypeAdapter programTypeAdapter;
+    private ProgramAdapter programAdapter;
+    private List<ProgramType> programTypeList = new ArrayList<>();
+    private List<Program> programList = new ArrayList<>();
 
     @Override
     public ProgramPresenter initPresenter() {
@@ -39,7 +50,7 @@ public class ProgramFragment extends BaseFragment<ProgramPresenter> implements P
         LinearLayoutManager layoutManagerType = new LinearLayoutManager(view.getContext());
         layoutManagerType.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewProgramType.setLayoutManager(layoutManagerType);
-//        recyclerViewProgramType.setAdapter();
+        recyclerViewProgramType.setAdapter(programTypeAdapter);
 
         // 分类下具体纵向recyclerView
         recyclerViewProgram = (RecyclerView)view.findViewById(R.id.recyclerView_program);
