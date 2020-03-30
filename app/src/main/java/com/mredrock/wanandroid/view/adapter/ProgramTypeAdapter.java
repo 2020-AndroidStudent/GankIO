@@ -39,6 +39,8 @@ public class ProgramTypeAdapter extends RecyclerView.Adapter<ProgramTypeAdapter.
         holder.programTypeName.setText(programType.getName());
         holder.programTypeView.setOnClickListener(v -> {
             // 点击效果
+            
+
         });
     }
 

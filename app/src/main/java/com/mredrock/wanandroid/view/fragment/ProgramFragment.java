@@ -33,7 +33,22 @@ public class ProgramFragment extends BaseFragment<ProgramPresenter> implements P
     private RecyclerView recyclerViewProgramType, recyclerViewProgram;
     private ProgramTypeAdapter programTypeAdapter;
     private ProgramAdapter programAdapter;
+
+
     private List<ProgramType> programTypeList = new ArrayList<>();
+
+    @Override
+    public void getProgramTypeResponse(List<ProgramType> programTypeList) {
+        this.programTypeList = programTypeList;
+        programTypeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getProgramType() {
+        mPresenter.getProgramType();
+    }
+
+
     private List<Program> programList = new ArrayList<>();
 
     @Override
@@ -41,22 +56,38 @@ public class ProgramFragment extends BaseFragment<ProgramPresenter> implements P
         return new ProgramPresenter(this);
     }
 
+    @Override
+    public void getProgramResponse(List<Program> programList) {
+        this.programList = programList;
+        programAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getProgram(String id) {
+        mPresenter.getProgram(id);
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_program, container, false);
+        getProgramType();
         // 项目分类横向recyclerView
         recyclerViewProgramType = (RecyclerView)view.findViewById(R.id.recyclerView_program_type);
         LinearLayoutManager layoutManagerType = new LinearLayoutManager(view.getContext());
         layoutManagerType.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewProgramType.setLayoutManager(layoutManagerType);
+        programTypeAdapter = new ProgramTypeAdapter(view.getContext(), programTypeList);
         recyclerViewProgramType.setAdapter(programTypeAdapter);
 
+        getProgram(null);
         // 分类下具体纵向recyclerView
         recyclerViewProgram = (RecyclerView)view.findViewById(R.id.recyclerView_program);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerViewProgram.setLayoutManager(layoutManager);
-//        recyclerViewProgram.setAdapter();
+        programAdapter = new ProgramAdapter(view.getContext(), programList);
+        recyclerViewProgram.setAdapter(programAdapter);
         return view;
     }
 }
