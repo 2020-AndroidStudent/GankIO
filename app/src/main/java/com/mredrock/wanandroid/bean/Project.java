@@ -5,7 +5,7 @@ package com.mredrock.wanandroid.bean;
  * @date 2020/3/26
  * @description
  */
-public class Program {
+public class Project {
 
     private String author;
     private String desc;
@@ -13,7 +13,7 @@ public class Program {
     private String link;
     private String niceShareDate;
 
-    public Program(String author, String desc, String envelopePic, String link, String niceShareDate) {
+    public Project(String author, String desc, String envelopePic, String link, String niceShareDate) {
         this.author = author;
         this.desc = desc;
         this.envelopePic = envelopePic;

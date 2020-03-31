@@ -5,12 +5,12 @@ package com.mredrock.wanandroid.bean;
  * @date 2020/3/26
  * @description
  */
-public class ProgramType {
+public class ProjectType {
 
     private String id;
     private String name;
 
-    public ProgramType(String id, String name) {
+    public ProjectType(String id, String name) {
         this.id = id;
         this.name = name;
     }

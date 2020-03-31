@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_program"
+        android:id="@+id/text_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -16,16 +16,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_program_type"
+        android:id="@+id/recyclerView_project_type"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_program"
+        app:layout_constraintTop_toBottomOf="@+id/text_project"
         tools:layout_editor_absoluteX="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_program"
+        android:id="@+id/recyclerView_project"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_program_type"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_project_type"
         tools:layout_editor_absoluteX="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

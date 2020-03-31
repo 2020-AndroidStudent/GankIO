@@ -12,12 +12,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_program_desc"
+            android:id="@+id/text_project_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="3"
             android:ellipsize="end"
-            android:text="@string/program_desc"
+            android:text="@string/project_desc"
             android:textStyle="bold"
             android:textSize="@dimen/desc_size"
             android:textColor="@color/colorBlack"/>
@@ -28,31 +28,31 @@
             android:layout_height="wrap_content" >
             
             <ImageView
-                android:id="@+id/image_program_avatar"
+                android:id="@+id/image_project_avatar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_round_c"/>
             <TextView
-                android:id="@+id/text_program_author"
+                android:id="@+id/text_project_author"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@string/program_author"
+                android:text="@string/project_author"
                 android:textSize="@dimen/middle_size"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
         <TextView
-            android:id="@+id/text_program_niceShareDate"
+            android:id="@+id/text_project_niceShareDate"
             android:layout_width="match_parent"
             android:layout_height="18dp"
-            android:text="@string/program_date"
+            android:text="@string/project_date"
             android:textColor="@color/colorGeryDark"
             android:paddingLeft="20dp"/>
     </LinearLayout>
     <ImageView
-        android:id="@+id/image_program_envelopePic"
+        android:id="@+id/image_project_envelopePic"
         android:layout_width="110dp"
         android:layout_height="110dp"/>
 </LinearLayout>

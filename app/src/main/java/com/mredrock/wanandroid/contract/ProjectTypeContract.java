@@ -9,7 +9,7 @@ import com.mredrock.wanandroid.base.IView;
  * @date 2020/3/30
  * @description
  */
-public interface ProgramTypeContract {
+public interface ProjectTypeContract {
     interface Model extends IModel {
 
     }

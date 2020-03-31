@@ -5,8 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.mredrock.wanandroid.base.BaseModel;
-import com.mredrock.wanandroid.bean.Program;
-import com.mredrock.wanandroid.contract.ProgramContract;
+import com.mredrock.wanandroid.contract.ProjectContract;
 import com.mredrock.wanandroid.network.httphelper.CallBack;
 import com.mredrock.wanandroid.network.httphelper.NetUtil;
 import com.mredrock.wanandroid.network.httphelper.Request;
@@ -16,17 +15,17 @@ import com.mredrock.wanandroid.network.httphelper.Request;
  * @date 2020/3/25
  * @description
  */
-public class ProgramModel extends BaseModel implements ProgramContract.Model {
-    private static final String TAG = "ProgramModel";
+public class ProjectModel extends BaseModel implements ProjectContract.Model {
+    private static final String TAG = "ProjectModel";
     private final String getProgramTypeUrl = "https://www.wanandroid.com/project/tree/json";
     private final String getProgramUrl = "https://www.wanandroid.com/project/list/1/json?cid=";
 
     @Override
-    public void getProgramType() {
+    public void getProjectType() {
         Request request = new Request.Builder()
                 .url(getProgramTypeUrl)
                 .build();
-        Log.d(TAG, "getProgramType: start");
+        Log.d(TAG, "getProjectType: start");
         NetUtil.getInstance().execute(request, new CallBack() {
             @Override
             public void onResponse(String response) {
@@ -34,20 +33,20 @@ public class ProgramModel extends BaseModel implements ProgramContract.Model {
                 message.what = 101;
                 message.obj = response;
                 sendMessage(message);
-                Log.d("GetProgramType", "onResponse: sendMessage");
+                Log.d("GetProjectType", "onResponse: sendMessage");
             }
 
             @Override
             public void onFailed(Exception e) {
                 e.printStackTrace();
-                Log.d("GetProgramType", "onFailed: ");
+                Log.d("GetProjectType", "onFailed: ");
             }
         });
-        Log.d(TAG, "getProgramType: end");
+        Log.d(TAG, "getProjectType: end");
     }
 
     @Override
-    public void getProgram(String id) {
+    public void getProject(String id) {
         String lastUrl = "294";
         if (id != null) {
             lastUrl = id;
@@ -55,7 +54,7 @@ public class ProgramModel extends BaseModel implements ProgramContract.Model {
         Request request = new Request.Builder()
                 .url(getProgramUrl + lastUrl)
                 .build();
-        Log.d(TAG, "getProgram: start");
+        Log.d(TAG, "getProject: start");
         NetUtil.getInstance().execute(request, new CallBack() {
             @Override
             public void onResponse(String response) {
@@ -63,19 +62,19 @@ public class ProgramModel extends BaseModel implements ProgramContract.Model {
                 message.what = 102;
                 message.obj = response;
                 sendMessage(message);
-                Log.d("getProgram", "onResponse: sendMessage");
+                Log.d("getProject", "onResponse: sendMessage");
             }
 
             @Override
             public void onFailed(Exception e) {
                 e.printStackTrace();
-                Log.d("getProgram", "onFailed: ");
+                Log.d("getProject", "onFailed: ");
             }
         });
-        Log.d(TAG, "getProgram: end");
+        Log.d(TAG, "getProject: end");
     }
 
-    public ProgramModel(Handler handler) {
+    public ProjectModel(Handler handler) {
         super(handler);
     }
 }
