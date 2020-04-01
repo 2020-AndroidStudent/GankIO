@@ -11,14 +11,14 @@ public class Project {
     private String desc;
     private String envelopePic;
     private String link;
-    private String niceShareDate;
+    private String niceDate;
 
-    public Project(String author, String desc, String envelopePic, String link, String niceShareDate) {
+    public Project(String author, String desc, String envelopePic, String link, String niceDate) {
         this.author = author;
         this.desc = desc;
         this.envelopePic = envelopePic;
         this.link = link;
-        this.niceShareDate = niceShareDate;
+        this.niceDate = niceDate;
     }
 
 
@@ -38,7 +38,7 @@ public class Project {
         return link;
     }
 
-    public String getNiceShareDate() {
-        return niceShareDate;
+    public String getNiceDate() {
+        return niceDate;
     }
 }

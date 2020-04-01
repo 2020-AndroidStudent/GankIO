@@ -17,13 +17,15 @@ import com.mredrock.wanandroid.network.httphelper.Request;
  */
 public class ProjectModel extends BaseModel implements ProjectContract.Model {
     private static final String TAG = "ProjectModel";
-    private final String getProgramTypeUrl = "https://www.wanandroid.com/project/tree/json";
-    private final String getProgramUrl = "https://www.wanandroid.com/project/list/1/json?cid=";
+    private final String getProjectTypeUrl = "https://www.wanandroid.com/project/tree/json";
+    private final String getProjectUrl = "https://www.wanandroid.com/project/list/1/json?cid=";
+    private final String getProjectUrlHead = "https://www.wanandroid.com/project/list/";
+    private final String getProjectUrlMiddle = "/json?cid=";
 
     @Override
     public void getProjectType() {
         Request request = new Request.Builder()
-                .url(getProgramTypeUrl)
+                .url(getProjectTypeUrl)
                 .build();
         Log.d(TAG, "getProjectType: start");
         NetUtil.getInstance().execute(request, new CallBack() {
@@ -46,13 +48,42 @@ public class ProjectModel extends BaseModel implements ProjectContract.Model {
     }
 
     @Override
+    public void refresh(String id) {
+        String lastUrl = "294";
+        if (id != null) {
+            lastUrl = id;
+        }
+        Request request = new Request.Builder()
+                .url(getProjectUrlHead + 1 + getProjectUrlMiddle + lastUrl)
+                .build();
+        Log.d(TAG, "refresh: start");
+        NetUtil.getInstance().execute(request, new CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Message message = new Message();
+                message.what = 103;
+                message.obj = response;
+                sendMessage(message);
+                Log.d("refresh", "onResponse: sendMessage");
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                e.printStackTrace();
+                Log.d("refresh", "onFailed: ");
+            }
+        });
+        Log.d(TAG, "refresh: end");
+    }
+
+    @Override
     public void getProject(String id) {
         String lastUrl = "294";
         if (id != null) {
             lastUrl = id;
         }
         Request request = new Request.Builder()
-                .url(getProgramUrl + lastUrl)
+                .url(getProjectUrlHead + 1 + getProjectUrlMiddle + lastUrl)
                 .build();
         Log.d(TAG, "getProject: start");
         NetUtil.getInstance().execute(request, new CallBack() {
@@ -72,6 +103,36 @@ public class ProjectModel extends BaseModel implements ProjectContract.Model {
             }
         });
         Log.d(TAG, "getProject: end");
+    }
+
+
+    @Override
+    public void addNewPage(String id, int page) {
+        String lastUrl = "294";
+        if (id != null) {
+            lastUrl = id;
+        }
+        Request request = new Request.Builder()
+                .url(getProjectUrlHead + page + getProjectUrlMiddle + lastUrl)
+                .build();
+        Log.d(TAG, "addNewPage: start");
+        NetUtil.getInstance().execute(request, new CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Message message = new Message();
+                message.what = 102;
+                message.obj = response;
+                sendMessage(message);
+                Log.d("addNewPage", "onResponse: sendMessage");
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                e.printStackTrace();
+                Log.d("addNewPage", "onFailed: ");
+            }
+        });
+        Log.d(TAG, "addNewPage: end");
     }
 
     public ProjectModel(Handler handler) {

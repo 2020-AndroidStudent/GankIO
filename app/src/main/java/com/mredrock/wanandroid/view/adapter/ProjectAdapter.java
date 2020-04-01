@@ -1,6 +1,8 @@
 package com.mredrock.wanandroid.view.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mredrock.wanandroid.R;
 import com.mredrock.wanandroid.bean.Project;
+import com.mredrock.wanandroid.network.getBitmap.BitmapCallBack;
+import com.mredrock.wanandroid.network.getBitmap.GetBitmap;
+import com.mredrock.wanandroid.uitls.SevenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +46,22 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         holder.descText.setText(project.getDesc());
         holder.authorText.setText(project.getAuthor());
 //        holder.avatarImage
-        holder.niceShareDateText.setText(project.getNiceShareDate());
-//        holder.envelopePicImage
+        holder.niceDateText.setText(project.getNiceDate());
+        if (project.getEnvelopePic().equals(null)) {
+            holder.envelopePicImage.setVisibility(View.VISIBLE);
+        } else {
+            GetBitmap.getInstance().execute(project.getEnvelopePic(), new BitmapCallBack() {
+                @Override
+                public void onResponse(Bitmap bitmap) {
+                    holder.envelopePicImage.setImageBitmap(bitmap);
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
         holder.projectView.setOnClickListener(v -> {
             // 点击效果
         });
@@ -55,7 +74,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         View projectView;
-        TextView descText, authorText, niceShareDateText;
+        TextView descText, authorText, niceDateText;
         ImageView avatarImage, envelopePicImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -63,7 +82,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
             projectView = itemView;
             descText = (TextView) itemView.findViewById(R.id.text_project_desc);
             authorText = (TextView) itemView.findViewById(R.id.text_project_author);
-            niceShareDateText = (TextView) itemView.findViewById(R.id.text_project_niceShareDate);
+            niceDateText = (TextView) itemView.findViewById(R.id.text_project_niceShareDate);
             avatarImage = (ImageView) itemView.findViewById(R.id.image_project_avatar);
             envelopePicImage = (ImageView) itemView.findViewById(R.id.image_project_envelopePic);
         }
