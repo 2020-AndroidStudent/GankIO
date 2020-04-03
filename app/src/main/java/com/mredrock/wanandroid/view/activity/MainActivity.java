@@ -13,7 +13,7 @@ import com.mredrock.wanandroid.base.BaseActivity;
 import com.mredrock.wanandroid.contract.MainContract;
 import com.mredrock.wanandroid.view.fragment.HomeFragment;
 
-public class MainActivity extends  BaseActivity<MainContract.Presenter> {
+public class MainActivity extends  BaseActivity<MainContract.Presenter>{
     private ViewPager viewPager;
     private MenuItem menuItem;
     //        设置滑动切换页面
