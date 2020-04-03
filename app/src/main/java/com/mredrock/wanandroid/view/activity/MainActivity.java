@@ -11,9 +11,10 @@ import com.mredrock.wanandroid.R;
 import com.mredrock.wanandroid.adapter.ViewPageAdaptor;
 import com.mredrock.wanandroid.base.BaseActivity;
 import com.mredrock.wanandroid.contract.MainContract;
+import com.mredrock.wanandroid.presenter.MainPresenter;
 import com.mredrock.wanandroid.view.fragment.HomeFragment;
 
-public class MainActivity extends  BaseActivity<MainContract.Presenter>{
+public class MainActivity extends  BaseActivity<MainContract.Presenter> implements MainContract.View{
     private ViewPager viewPager;
     private MenuItem menuItem;
     //        设置滑动切换页面
@@ -41,7 +42,7 @@ public class MainActivity extends  BaseActivity<MainContract.Presenter>{
 
     @Override
     public MainContract.Presenter initPresenter() {
-        return null;
+        return new MainPresenter(this);
     }
 
     @Override
