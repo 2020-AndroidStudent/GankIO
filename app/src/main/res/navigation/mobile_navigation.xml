@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.mredrock.wanandroid.view.fragment.HomeFragment"
+        android:label="主页"
+        tools:layout="@layout/fragment_home" />
+<!--
+    <fragment
+        android:id="@+id/navigation_classify"
+        android:name=""
+        android:label="分类"
+        tools:layout="@layout/fragment_" />
+
+    <fragment
+        android:id="@+id/navigation_project"
+        android:name=""
+        android:label="项目"
+        tools:layout="@layout/fragment_" />
+
+    <fragment
+        android:id="@+id/navigation_my"
+        android:name="com.mredrock.wanandroid.view.fragment.MyFragment"
+        android:label="我的"
+        tools:layout="@layout/fragment_my" />
+        -->
+</navigation>

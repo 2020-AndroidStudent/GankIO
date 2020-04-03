@@ -1,12 +1,13 @@
 package com.mredrock.wanandroid.view.widget;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,8 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.mredrock.wanandroid.R;
+import com.mredrock.wanandroid.bean.BannerBean;
 import com.mredrock.wanandroid.uitls.SizeUtils;
+
+import java.util.List;
 
 
 /**
@@ -28,8 +33,9 @@ public class MyLooperView extends LinearLayout {
     private MyViewPager mViewPager;
     private TextView mTitleView;
     private LinearLayout mPointContainer;
-    private TitleBindListener mTitleBindListener = null;
     private InnerPageAdapter mInnerAdapter = null;
+    private Context mContext;
+    private List<BannerBean> mData;
 
     public MyLooperView(Context context) {
         //确保统一入口
@@ -43,6 +49,7 @@ public class MyLooperView extends LinearLayout {
 
     public MyLooperView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context,attrs,defStyleAttr);
+        this.mContext = context;
         //点容器，需要动态地创建，因为点的个数跟内容个数有关系
         LayoutInflater.from(context).inflate(R.layout.layout_looper_view,this,true);
         initView();
@@ -54,7 +61,6 @@ public class MyLooperView extends LinearLayout {
      */
     private void initEvent() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
             @Override
             public void onPageScrolled(int position,float positionOffset,int positionOffsetPixels) {
                 //滑动时的回调
@@ -62,10 +68,9 @@ public class MyLooperView extends LinearLayout {
 
             @Override
             public void onPageSelected(int position) {
-                //滑动以后停下来的回调，position指所停在的位置
-                //获取标题
-                if(mTitleBindListener != null && mInnerAdapter != null) {
-                    String title = mTitleBindListener.getTitle(position % mInnerAdapter.getDataSize());
+                //这样来设置标题
+                String title = mData.get(position % mInnerAdapter.getDataSize()).getTitle();
+                if (!TextUtils.isEmpty(title)){
                     mTitleView.setText(title);
                 }
                 updateIndicator();
@@ -90,28 +95,16 @@ public class MyLooperView extends LinearLayout {
         mViewPager.setOffscreenPageLimit(3);
         mTitleView = this.findViewById(R.id.content_title);
         mPointContainer = this.findViewById(R.id.content_point_container);
+
+        //适配器创建放在这
+        mInnerAdapter = new InnerPageAdapter();
+        mViewPager.setAdapter(mInnerAdapter);
     }
 
-
-    //提供方法给外部设置适配器进来，这个适配器怎么我们有规定，所以使用了一个抽象类来描述。
-    //而TitleBindListener用来获取标题，我们要标题的时候调用即可。
-    public void setData(InnerPageAdapter innerPageAdapter,TitleBindListener listener) {
-        mViewPager.setAdapter(innerPageAdapter);
-        mViewPager.setCurrentItem(Integer.MAX_VALUE / 2 + 1);
-        this.mInnerAdapter = innerPageAdapter;
-        this.mTitleBindListener = listener;
-        if(mTitleBindListener != null) {
-            String title = mTitleBindListener.getTitle(0);
-            mTitleView.setText(title);
-        }
-        //创建圆点
+    public void refreshUi(List<BannerBean> data){
+        this.mData = data;
+        mInnerAdapter.notifyDataSetChanged();
         updateIndicator();
-        innerPageAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                updateIndicator();
-            }
-        });
     }
 
     private void updateIndicator() {
@@ -126,8 +119,8 @@ public class MyLooperView extends LinearLayout {
                 } else {
                     view.setBackgroundColor(Color.parseColor("#ffffff"));
                 }
-                LayoutParams layoutParams = new LayoutParams(SizeUtils.dip2px(getContext(),5),SizeUtils.dip2px(getContext(),5));
-                layoutParams.setMargins(SizeUtils.dip2px(getContext(),5),0,SizeUtils.dip2px(getContext(),5),0);
+                LayoutParams layoutParams = new LayoutParams(SizeUtils.dip2px(getContext(),5), SizeUtils.dip2px(getContext(),5));
+                layoutParams.setMargins(SizeUtils.dip2px(getContext(),5),0, SizeUtils.dip2px(getContext(),5),0);
                 view.setLayoutParams(layoutParams);
                 //添加到容器里
                 mPointContainer.addView(view);
@@ -135,16 +128,19 @@ public class MyLooperView extends LinearLayout {
         }
     }
 
-    public interface TitleBindListener {
-        String getTitle(int position);
-    }
-
-    public static abstract class InnerPageAdapter extends PagerAdapter {
-
-        public abstract int getDataSize();
+    private class InnerPageAdapter extends PagerAdapter {
+        public int getDataSize(){
+            if (mData == null){
+                return 0;
+            }
+            return mData.size();
+        }
 
         @Override
         public int getCount() {
+            if (mData == null){
+                return 0;
+            }
             //因为要无限轮播，所以我们就给一个IntegerMaxValue
             return Integer.MAX_VALUE;
         }
@@ -164,7 +160,18 @@ public class MyLooperView extends LinearLayout {
             return itemView;
         }
 
-        protected abstract View getItemView(ViewGroup container,int itemPosition);
+        public View getItemView(ViewGroup container,int itemPosition){
+            ImageView imageView = new ImageView(container.getContext());
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            String picUrl = mData.get(itemPosition).getImagePath();
+            //加载网络图片 这里要用Glide 或者imageLoader
+            if (!TextUtils.isEmpty(picUrl)){
+                Glide.with(mContext).load(picUrl).into(imageView);
+            }
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageView.setLayoutParams(layoutParams);
+            return imageView;
+        }
 
         @Override
         public void destroyItem(@NonNull ViewGroup container,int position,@NonNull Object object) {
