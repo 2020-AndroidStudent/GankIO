@@ -47,20 +47,10 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         holder.authorText.setText(project.getAuthor());
 //        holder.avatarImage
         holder.niceDateText.setText(project.getNiceDate());
-        if (project.getEnvelopePic().equals(null)) {
-            holder.envelopePicImage.setVisibility(View.VISIBLE);
+        if (!project.getEnvelopePic().equals(null)) {
+            holder.envelopePicImage.setVisibility(View.GONE);
         } else {
-            GetBitmap.getInstance().execute(project.getEnvelopePic(), new BitmapCallBack() {
-                @Override
-                public void onResponse(Bitmap bitmap) {
-                    holder.envelopePicImage.setImageBitmap(bitmap);
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            holder.envelopePicImage.setImageBitmap(project.getEnvelopePicBitmap());
         }
         holder.projectView.setOnClickListener(v -> {
             // 点击效果

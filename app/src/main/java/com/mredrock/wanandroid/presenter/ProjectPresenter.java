@@ -75,6 +75,7 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.Model, Proje
             case 104:
                 // JSON解析
                 parseAddPage(msg.obj.toString());
+                break;
         }
     }
 
