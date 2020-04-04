@@ -84,6 +84,8 @@ public class MainActivity extends  BaseActivity<MainContract.Presenter> implemen
 
 
 
+
+
         ViewPageAdaptor adaptor = new ViewPageAdaptor(getSupportFragmentManager());
         adaptor.addFragment(homeFragment);
         /*在这里添加Fragment。。*/

@@ -5,10 +5,14 @@
 
     <LinearLayout
         android:id="@+id/ll_root"
+        android:background="#ffffff"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        <TextView
+            android:background="#E1E0E0"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
         <RelativeLayout
             android:padding="8dp"
             android:layout_width="match_parent"
@@ -54,11 +58,6 @@
                 android:layout_height="20dp"/>
 
         </RelativeLayout>
-
-        <TextView
-            android:background="#e5e5e5"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
 
     </LinearLayout>
 

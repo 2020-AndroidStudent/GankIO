@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mredrock.wanandroid.R;
-import com.mredrock.wanandroid.base.BaseActivity;
-import com.mredrock.wanandroid.base.IPresenter;
 
 
 /**
@@ -15,12 +15,8 @@ import com.mredrock.wanandroid.base.IPresenter;
  * @project name WanAndroid
  *
  */
-public class ArticleInfoActivity extends BaseActivity {
+public class ArticleInfoActivity extends AppCompatActivity {
     private WebView mWebView;
-    @Override
-    public IPresenter initPresenter() {
-        return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
