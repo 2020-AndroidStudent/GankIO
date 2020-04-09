@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.mredrock.wanandroid.R;
 import com.mredrock.wanandroid.bean.BannerBean;
 import com.mredrock.wanandroid.uitls.SizeUtils;
@@ -161,17 +160,18 @@ public class MyLooperView extends LinearLayout {
         }
 
         public View getItemView(ViewGroup container,int itemPosition){
-            ImageView imageView = new ImageView(container.getContext());
+            MyImageView imageView = new MyImageView(container.getContext());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             String picUrl = mData.get(itemPosition).getImagePath();
-            //加载网络图片 这里要用Glide 或者imageLoader
+            //加载网络图片
             if (!TextUtils.isEmpty(picUrl)){
-                Glide.with(mContext).load(picUrl).into(imageView);
+                imageView.setImageURL(picUrl);
             }
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             imageView.setLayoutParams(layoutParams);
             return imageView;
         }
+
 
         @Override
         public void destroyItem(@NonNull ViewGroup container,int position,@NonNull Object object) {

@@ -11,6 +11,11 @@
         android:name="com.mredrock.wanandroid.view.fragment.HomeFragment"
         android:label="主页"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_my"
+        android:name="com.mredrock.wanandroid.view.fragment.MyFragment"
+        android:label="我的"
+        tools:layout="@layout/fragment_my" />
 <!--
     <fragment
         android:id="@+id/navigation_classify"
@@ -23,11 +28,7 @@
         android:name=""
         android:label="项目"
         tools:layout="@layout/fragment_" />
+-->
 
-    <fragment
-        android:id="@+id/navigation_my"
-        android:name="com.mredrock.wanandroid.view.fragment.MyFragment"
-        android:label="我的"
-        tools:layout="@layout/fragment_my" />
-        -->
+
 </navigation>

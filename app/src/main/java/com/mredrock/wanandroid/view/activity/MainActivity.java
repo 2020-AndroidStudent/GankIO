@@ -13,6 +13,7 @@ import com.mredrock.wanandroid.base.BaseActivity;
 import com.mredrock.wanandroid.contract.MainContract;
 import com.mredrock.wanandroid.presenter.MainPresenter;
 import com.mredrock.wanandroid.view.fragment.HomeFragment;
+import com.mredrock.wanandroid.view.fragment.MyFragment;
 
 public class MainActivity extends  BaseActivity<MainContract.Presenter> implements MainContract.View{
     private ViewPager viewPager;
@@ -82,7 +83,7 @@ public class MainActivity extends  BaseActivity<MainContract.Presenter> implemen
         HomeFragment homeFragment = new HomeFragment();
         /*在这里创建Fragment。。*/
 
-
+        MyFragment myFragment = new MyFragment();
 
 
 
@@ -90,7 +91,8 @@ public class MainActivity extends  BaseActivity<MainContract.Presenter> implemen
         adaptor.addFragment(homeFragment);
         /*在这里添加Fragment。。*/
 
-//        adaptor.addFragment(myFragment);
+
+        adaptor.addFragment(myFragment);
         viewPager.setAdapter(adaptor);
     }
 
